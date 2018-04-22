@@ -1,0 +1,6 @@
+var Reiter = {
+	username: "Belle272",
+	passwort: "Pony272",
+	name: {nachname: "Gäb",
+		   vorname: "Debby}
+}
