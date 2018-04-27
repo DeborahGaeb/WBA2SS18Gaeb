@@ -1,0 +1,37 @@
+{
+  "name": "horselife",
+  "version": "1.0.0",
+  "description": "Ein System für Pferdefreunde, Reitstaell",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DeborahGaeb/WBA2SS18Gaeb.git"
+  },
+  "keywords": [
+    "Rideing",
+    "Nodejs",
+    "verteilte",
+    "anwendung",
+    "WBA2",
+    "Medieninformatik"
+  ],
+  "author": "Deborah Gäb",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DeborahGaeb/WBA2SS18Gaeb/issues"
+  },
+  "homepage": "https://github.com/DeborahGaeb/WBA2SS18Gaeb#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "faye": "^1.2.4",
+    "fb": "^2.0.0",
+    "instagram-api": "^1.0.3",
+    "instagram-node": "^0.5.8",
+    "openm": "^1.1.0",
+    "redis": "^2.8.0",
+    "twitter": "^1.7.1"
+  }
+}
