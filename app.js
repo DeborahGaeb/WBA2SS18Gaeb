@@ -15,6 +15,16 @@ const openm = require('openm');
 var app = express();
 app.use(bodyParser.json());
 
+
+
+
+
+
+
+
+
+
+
 //Insta verbindung mit client
 ig.use({"client_id": "1fe39dcc6872416ba4f3542abfe5624b", "client_secret":  "d2e8762ab6de471589e78b2e2edb5e8a"});
 
