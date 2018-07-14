@@ -46,15 +46,7 @@ app.get('/reitstall', function(req, reply){
                 reitstaelle.push(JSON.parse(val));
             });
             reitstaelle = reitstaelle.map(function(reitstaelle){
-                return {id: reitstaelle.id, username: Reitstall.username, email: reitstall.email, passwort: reitstall.passwort, vorname: reitstall.vorname,
-                    nachname: reitstall.nachname, nameStall: reitstall.nameStall, strasse: reitstall.stasse, hausnummer: reitstall.hausnummer, plz: reitstall.plz, 
-                    wohnort: reitstall.wohnort, telefon: reitstall.telefon, webadresse: reitstall.webadresse, twitter: reitstall.twitter,
-                    instgramm: reitstall.instgramm, facebook: reitstall.facebook, haltung: reitstall.haltung, reithalle: reitstall.reithalle,
-                    weideKoppel: reitstall.weideKoppel, paddock: reitstall.paddock, springplatz: reitstall.springplatz, fuehranlage: reitstall.fuehranlage,
-                    laufband: reitstall.laufband, roundpan: reitstall.roundpan, longierhalle: reitstall.longierhalle, gelaendestreckeGelaendehinternisse: reitstall.gelaendestreckeGelaendehinternisse,
-                    sandbahn: reitstall.sandbahn, reitwege: reitstall.reitwege, waschplatz: reitstall.waschplatz, putzplatz: reitstall.putzplatz,
-                    solarium: reitstall.solarium, haengerstellplatz: reitstall.haengerstellplatz, stuebchen: reitstall.stuebchen,
-                    reitschule: reitstall.reitschule, waschmaschine: reitstall.waschmaschine
+                return {id: reitstaelle.id, username: Reitstall.username, email: reitstall.email, passwort: reitstall.passwort, vorname: reitstall.vorname, nachname: reitstall.nachname, nameStall: reitstall.nameStall, strasse: reitstall.stasse, hausnummer: reitstall.hausnummer, plz: reitstall.plz, stadt: reitstall.stadt, telefon: reitstall.telefon, webadresse: reitstall.webadresse, twitter: reitstall.twitter, instgramm: reitstall.instgramm, facebook: reitstall.facebook, haltung: reitstall.haltung, reithalle: reitstall.reithalle, weideKoppel: reitstall.weideKoppel, paddock: reitstall.paddock, springplatz: reitstall.springplatz, fuehranlage: reitstall.fuehranlage,laufband: reitstall.laufband, roundpan: reitstall.roundpan, longierhalle: reitstall.longierhalle, gelaendestreckeGelaendehinternisse: reitstall.gelaendestreckeGelaendehinternisse, sandbahn: reitstall.sandbahn, reitwege: reitstall.reitwege, waschplatz: reitstall.waschplatz, putzplatz: reitstall.putzplatz,solarium: reitstall.solarium, haengerstellplatz: reitstall.haengerstellplatz, stuebchen: reitstall.stuebchen, reitschule: reitstall.reitschule, waschmaschine: reitstall.waschmaschine
                 };
             });
             res.json(reitstaelle);

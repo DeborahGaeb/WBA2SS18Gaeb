@@ -56,23 +56,24 @@
 </center> </div>
 <script>
      document.getElementById("button").onclick = function () {
-        postUser();
+        postreiter();
         
         function postreiter() {
-            var obj = {};
+            var einlesenReiter = {};
 
-            obj["email"]= document.getElementById("email").value;
+            einlesenReiter["email"]= document.getElementById("email").value;
             var passwort = document.getElementById("passwort").value;
             var passwort_wh = document.getElementById("passwort_wh").value;
             if(passwort == passwort_wh){
-                obj = document.getElementById("passwort").value;
+                einlesenReiter = document.getElementById("passwort").value;
             }
             var name = document.getElementById("name").value;
             var StraßeHNR = document.getElementById("StraßeHNR").value;
-            var plz = document.getElementById("stadt").value;
+            var plz = document.getElementById("plz").value;
+            var stadt = document.getElementById("stadt").value
         }
-        obj = JSON.stringify(obj);
-        console.log(obj);
+        obj = JSON.stringify(einlesenReiter);
+        console.log(einlesenReiter);
 
         var settings = {
             "async": false,
@@ -83,7 +84,7 @@
                 "Content-Type": "application/json",
                 "Cache-Control": "no-cache"
             },
-            "data": obj
+            "data": einlesenReiter
         }
         $.ajax(settings).done(function(response){
             console.log(response);
