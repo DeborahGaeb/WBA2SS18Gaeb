@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Registertion von Reiter</title>
+    <link href="css/styles.css" rel="stylesheet" type="text/css">
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<header>
+    <div id="logo"> <img src="pic/HorselifeLogo.png"> </div>
+</header>
+<body>
+<div class="centerer">
+    <nav>
+        <a href="index.html"> Home </a><a class="lines">|</a>
+        <a href="lehrgaenge.html">Lehrgänge</a><a class="lines">|</a>
+        <a href="turniere.html">Turniere</a><a class="lines">|</a>
+        <a href="stallSuche.html">Stallsuche </a><a class="lines">|</a> 
+        <a href="login.html">Login</a><a class="lines">|</a>
+    </nav>
+</div>
+<div>
+    <aside class="col-md-2 col-lg-3">
+        <hr /> <center> <form> 
+<br>
+<label>Email-Adresse  
+    <input id="email" name="email" size="15" required></label>
+     
+<br>
+<label>Name  
+        <input id="name" name="name" size="15" required></label>
+
+<br>
+<label>Passwort  
+    <input id="passwort" name="passwort" size="15" required></label>
+
+<br>
+<label>Passwort 
+    <input id="passwort_wh" name="passwort_wh" size="15" required></label>
+<br>
+<label>Straße Hausnummer 
+        <input id="StraßeHNR" name="StraßeHNR" size="15" required></label>
+ <br>
+<label>PLZ
+    <input id="plz" name="plz" size="15" required></label>
+    
+<br>
+<label>Stadt  
+    <input id="stadt" name="stadt" size="15" required></label>
+<br>
+    <input type="submit" value="Registrieren" id="button">
+
+</form> 
+</center> </div>
+<script>
+     document.getElementById("button").onclick = function () {
+        postUser();
+        
+        function postreiter() {
+            var obj = {};
+
+            obj["email"]= document.getElementById("email").value;
+            var passwort = document.getElementById("passwort").value;
+            var passwort_wh = document.getElementById("passwort_wh").value;
+            if(passwort == passwort_wh){
+                obj = document.getElementById("passwort").value;
+            }
+            var name = document.getElementById("name").value;
+            var StraßeHNR = document.getElementById("StraßeHNR").value;
+            var plz = document.getElementById("stadt").value;
+        }
+        obj = JSON.stringify(obj);
+        console.log(obj);
+
+        var settings = {
+            "async": false,
+            "crossDomain": true,
+            "url": "http://localhost:3000/reiter",
+            "method": "POST",
+            "headers": {
+                "Content-Type": "application/json",
+                "Cache-Control": "no-cache"
+            },
+            "data": obj
+        }
+        $.ajax(settings).done(function(response){
+            console.log(response);
+        });
+     }
+</script>
+</body>    
+</html>
