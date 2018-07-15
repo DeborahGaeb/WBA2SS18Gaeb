@@ -50,42 +50,46 @@
 <label>Stadt  
     <input id="stadt" name="stadt" size="15" required></label>
 <br>
-    <input type="submit" value="Registrieren" id="button" onClick="publishReiter()">
+    <input type="submit" value="Registrieren" id="button">
 
 </form> 
 </center> </div>
-<script type="text/javascript" src="http://localhost:8000/faye/client.js"></script>
 <script>
-    var client = new Faye.Client("http://localhost:8000/faye");
+     document.getElementById("button").onclick = function () {
+        postreiter();
+        
+        function postreiter() {
+            var einlesenReiter = {};
 
-        var passwort = document.getElementById("passwort").value;
-        var passwort_wh =  document.getElementById("passwort_wh").value;
-         if(passwort == passwort_wh){
-            passwort = document.getElementById("passwort").value;
-        };
-
-        function publishReiter(){
-            var publication =  client.publish('/reiter', {
-               "email": document.getElementById("email").value,
-                "passwort": document.getElementById("passwort").value,
-                "name": document.getElementById("name").value,
-                "StraßeHNR": document.getElementById("StraßeHNR").value,
-                "plz": document.getElementById("plz").value,
-                "stadt": document.getElementById("stadt").value,
-                "id": "14"
-            });
-            publication.then(
-                function(){
-                    console.log("Reiter wurde versenden");
-                },
-                function (error){
-                    console.log("Reiter wurde nicht versenden");
-                    next(error);
-                }
-            );
-            return false;
+            einlesenReiter["email"]= document.getElementById("email").value;
+            var passwort = document.getElementById("passwort").value;
+            var passwort_wh = document.getElementById("passwort_wh").value;
+            if(passwort == passwort_wh){
+                einlesenReiter = document.getElementById("passwort").value;
+            }
+            var name = document.getElementById("name").value;
+            var StraßeHNR = document.getElementById("StraßeHNR").value;
+            var plz = document.getElementById("plz").value;
+            var stadt = document.getElementById("stadt").value
         }
+        obj = JSON.stringify(einlesenReiter);
+        console.log(einlesenReiter);
 
+        var settings = {
+            "async": false,
+            "crossDomain": true,
+            "url": "http://localhost:3000/reiter",
+            "method": "POST",
+            "headers": {
+                "Content-Type": "application/json",
+                "Cache-Control": "no-cache"
+            },
+            "data": einlesenReiter
+        }
+        $.ajax(settings).done(function(response){
+            console.log(response);
+        });
+     }
 </script>
 </body>    
 </html>

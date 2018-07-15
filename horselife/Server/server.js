@@ -23,6 +23,9 @@ var cors = require('cors');
 // Routen
 const reiterRouter = require("./router/reiter");
 const reitstallRouter = require("./router/reitstall");
+const wunschstallRouter = require("./router/wunschStall");
+//EInbinden instgramm 
+var ig = require('instagram-node').instagram();
 
 //Nutzung Morgan
 var morgan = require('morgan');
@@ -43,12 +46,20 @@ app.use((req, res, next) =>{
 
 app.use("/reiter", reiterRouter);
 app.use("/reitstall", reitstallRouter);
+//app.use("/matchingReitstall", matchingReitstall/Router);
+app.use('/wunschstall', wuschstallRouter);
 
+//EInen Instgramm Intgramm 
+ig.use({"client_id": "1fe39dcc6872416ba4f3542abfe5624b", "client_secret":  "d2e8762ab6de471589e78b2e2edb5e8a"});
 
-//TODO MAtching!
-app.get('/matchingStall', function(req, res){
-    
-});
+//Beliebte Bilder auf insta finden
+ig.media_popular(function (err, media, limit) {
+	if (err) { 
+		throw err; 
+	}
+	console.log(media);
+})
+
 
 app.listen(3000, function () {
     console.log('Dienstanbieter läuft über Port 3000')

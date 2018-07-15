@@ -227,8 +227,8 @@ app.get('/:id/lehrgang', function(req, res){
             reply.forEach(function(val){
                 lehrgaenge.push(JSON.parse(val));
             });
-            freieBoxen = freieBoxen.map(function(freieBox){
-                return {id: lehrgang.id, name: lehrgang.name, };
+            lehrgang = lehrgang.map(function(freieBox){
+                return {id: lehrgang.id, name: lehrgang.name, voraussetzungAbzeichen: lehrgaenge.voraussetzungAbzeichen, voraussetzung:lehrgaenge.voraussetzung, preis: lehrgaenge.pres, startdatum: lehrgaenge.startdatum, enddatum: lehrgaenge.enddatum, pruefungsdatum: lehrgaenge.pruefungsdatum };
             });
             res.json(lehrgaenge);
         });

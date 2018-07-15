@@ -59,61 +59,67 @@
             
             <br> <input type="submit" value="Registrieren" id="button">          
         </form></center></aside>
-        <script type="text/javascript" src="http://localhost:8000/faye/client.js"></script>
         <script>
-             var client = new Faye.Client("http://localhost:8000/faye");
+            document.getElementById("button").onclick = function () {
+                postUser();       
 
-            var passwort = document.getElementById("passwort").value;
-            var passwort_wh =  document.getElementById("passwort_wh").value;
-            if(passwort == passwort_wh){
-                passwort = document.getElementById("passwort").value;
-            };
+                function postreiter() {
+                     var einlesenReitstall = {};
 
-            function publishReiter(){
-                var publication =  client.publish('/reiter', {
-                    "email": document.getElementById("email").value,
-                    "passwort": document.getElementById("passwort").value, 
-                    "vorname":  document.getElementById("vorname").value,   
-                    "nachname": document.getElementById("nachname").value,
-                    "strasseHNR": document.getElementById("strasseHNR").value,   
-                    "plz": document.getElementById("plz").value,
-                    "stadt": document.getElementById("stadt").value,
-                    "telefon": document.getElementById("telefon").value,
-                    "webadresse": document.getElementById("webadresse").value, 
-                    "twitter": document.getElementById("twitter").value,
-                    "instgramm": document.getElementById("instgramm").value, 
-                    "facebook": document.getElementById("facebook").value,
-                    "haltung": document.getElementById("haltung").value,
-                    "reithalle": document.getElementById("reithalle").value,
-                    "weideKoppel": document.getElementById("weideKoppel").value,
-                    "paddock": document.getElementById("paddock").value,
-                    "springplatz": document.getElementById("springplatz").value,
-                    "fuehranlage": document.getElementById("fuehranlage").value,
-                    "laufband": document.getElementById("laufband").value,
-                    "roundpan": document.getElementById("roundpan").value,
-                    "longierhalle": document.getElementById("longierhalle").value,
-                    "gelaendestreckeGelaendehinternisse": document.getElementById("gelaendestreckeGelaendehinternisse").value,
-                    "waschplatz": document.getElementById("waschplatz").value,
-                    "sandbahn": document.getElementById("").value,
-                    "reitwege": document.getElementById("reitwege").value,
-                    "putzplatz": document.getElementById("putzplatz").value,
-                    "solarium": document.getElementById("solarium").value,
-                    "haengerstellplatz": document.getElementById("haengerstellplatz").value,
-                    "stuebchen": document.getElementById("stuebchen").value,
-                    "reitschule": document.getElementById("reitschule").value,
-                    "waschmaschine": document.getElementById("waschmaschine").value,     
-                });
-                publication.then(
-                    function(){
-                        console.log("Reiter wurde versenden");
-                    },
-                    function (error){
-                        console.log("Reiter wurde nicht versenden");
-                        next(error);
+                    einlesenReitstall["email"] = document.getElementById("email").value;
+                    var passwort = document.getElementById("passwort").value;
+                    var passwort_wh = document.getElementById("passwort_wh").value;
+                    if (passwort == passwort_wh) {
+                        einlesenReitstall = document.getElementById("passwort").value;
                     }
-                );
-                return false;
-            }        
+                    einlesenReitstall["vorname"] = document.getElementById("vorname").value;
+                    einlesenReitstall["nachname"] = document.getElementById("nachname").value;       
+                     einlesenReitstall["strasseHNR"] = document.getElementById("strasseHNR").value;
+                    einlesenReitstall["plz"] = document.getElementById("plz").value;
+                    einlesenReitstall["stadt"] = document.getElementById("stadt").value;
+                    einlesenReitstall["telefon"] = document.getElementById("telefon").value;
+                    einlesenReitstall["webadresse"] = document.getElementById("webadresse").value;
+                    einlesenReitstall["twitter"] = document.getElementById("twitter").value;
+                    einlesenReitstall["instgramm"] = document.getElementById("instgramm").value;
+                    einlesenReitstall["facebook"] = document.getElementById("facebook").value;
+                    einlesenReitstall["haltung"] = document.getElementById("haltung").value;
+                    einlesenReitstall["reithalle"] = document.getElementById("reithalle").value;
+                    einlesenReitstall["weideKoppel"] = document.getElementById("weideKoppel").value;
+                    einlesenReitstall["paddock"] = document.getElementById("paddock").value;
+                    einlesenReitstall["springplatz"] = document.getElementById("springplatz").value;
+                    einlesenReitstall["fuehranlage"] = document.getElementById("fuehranlage").value;
+                    einlesenReitstall["laufband"] = document.getElementById("laufband").value;
+                    einlesenReitstall["roundpan"] = document.getElementById("roundpan").value;
+                    einlesenReitstall["longierhalle"] = document.getElementById("longierhalle").value;
+                    einlesenReitstall["gelaendestreckeGelaendehinternisse"] = document.getElementById("gelaendestreckeGelaendehinternisse").value;
+                    einlesenReitstall["waschplatz"] = document.getElementById("waschplatz").value;
+                    einlesenReitstall["sandbahn"] = document.getElementById("").value;
+                    einlesenReitstall["reitwege"] = document.getElementById("reitwege").value;
+                    einlesenReitstall["putzplatz"] = document.getElementById("putzplatz").value;
+                    einlesenReitstall["solarium"] = document.getElementById("solarium").value;
+                    einlesenReitstall["haengerstellplatz"] = document.getElementById("haengerstellplatz").value;
+                    einlesenReitstall["stuebchen"] = document.getElementById("stuebchen").value;
+                    einlesenReitstall["reitschule"] = document.getElementById("reitschule").value;
+                    einlesenReitstall["waschmaschine"] = document.getElementById("waschmaschine").value;
+                }        
+                einlesenReitstall = JSON.stringify(einlesenReitstall);
+                console.log(einlesenReitstall);                
+
+                var settings = {
+                    "async": false,
+                    "crossDomain": true,
+                    "url": "http://localhost:3000/reitstall",
+                    "method": "POST",
+                    "headers": {        
+                        "Content-Type": "application/json",
+                        "Cache-Control": "no-cache"
+                    },
+                    "data": einlesenReitstall
+                }
+                $.ajax(settings).done(function (response) {
+                    console.log(response);
+                });        
+            }
      </script>    
 </div>
 </body>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Registertion von Reiter</title>
+  <link href="css/styles.css" rel="stylesheet" type="text/css">
+  <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<header>
+  <div id="logo">
+    <img src="pic/HorselifeLogo.png"> </div>
+</header>
+<body>
+    <div class="centerer">
+        <nav>
+            <a href="index.html"> Home </a> <a class="lines">|</a>
+            <a href="lehrgaenge.html">Lehrgänge</a> <a class="lines">|</a>
+            <a href="turniere.html">Turniere</a> <a class="lines">|</a>
+            <a href="stallSuche.html">Stallsuche </a> <a class="lines">|</a>
+             <a href="login.html">Login</a> <a class="lines">|</a>
+        </nav>
+    </div>
+    <aside>
+        
+    </aside>
+    <main>
+        <section id="new_lehrgang" class="col-md-6"> 
+            <br> <label for="Lehrgangname"> Lehrgangsmame <input id="lehrgangsname" size="15" maxlength="30" required> </label>
+            <br>  <label for="LehrgangsVoraussetzung"> Voraussetzung an Abzeichen <input type="text" id="vorausstzungAbzeichen" size="15" maxlength="30" required></label>
+            <br><label for="Voraussetzung und Fähigkeit"> Voraussetzung und FähigkeitVoraussetzung und Fähigkeit <input type="voraussetzugen" id="articlename" size="15" maxlength="30" required></label>
+            <br><label for="LehrgangsStartdatum"> Startdatum - <input type="date" id="LehrgangsStartdatum" value="dd.mm.yyyy">
+            <br><label for="LehrgangsEnddatum"> Enddatum - <input type="date" id="LehrgangEnddatum" value="dd.mm.yyyy">
+            <br><label for="LehrgangsPruefungsdatum"> Prüfungsdatum - <input type="date" id="pruefungsdatum" value="dd.mm.yyyy">
+                
+        </section> 
+    </main>
+    <script type="text/javascript" src="http://localhost:8000/faye/client.js"></script>
+
+<script type="text/javascript">
+    var client = new Faye.Client("http://localhost:8000/faye");
+    function publishLehrgang(){
+
+        var publication = client.publish('/:id/lehrgaenge', {
+            'lehrgangsname': document.getElementById('lehrgangsname').value,
+            'voraussetzungAbzeichen': document.getElementById('vorausstzungAbzeichen').value,
+            'vorausstzungen': document.getElementById('vorausstzungen').value,
+            'LehrgangsStartdatum': document.getElementById('LehrgangsStartdatum').value,
+            'LehrgangEnddatum': document.getElementById('LehrgangEnddatum').value,
+            'pruefungsdatum': document.getElementById('pruefungsdatum').value,
+            'userID': ''
+        });
+
+        publication.then(
+            function(){
+                console.log("Nachricht wurder versendet.");
+            },
+            function(error){
+                console.log("Nachricht konnte nicht versendet werden."),
+                next(error);
+            }
+        );
+        return false;
+    }
+
+</script>
+</body>
+</html>

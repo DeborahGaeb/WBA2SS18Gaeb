@@ -11,6 +11,8 @@ var fs = require('fs');
 var app = express();
 var server = http.createServer(app);
 app.use(bodyParser.json());
+app.use(express.static(__dirname+ '/webseite/css'));
+app.use(express.static(__dirname+ '/webseite'));
 
 app.use(function (req, res) {
     res.type('text/plain');
@@ -25,6 +27,11 @@ app.use(function (err, req, res, next) {
     res.send('500 - internal error');
 });
 
+//webseite einbinden
+app.get('/', function(req, res){
+    res.render('index.html');
+    console.log('Startseite');
+})
 
 //Adapter konfigurieren
 var bayeux = new faye.NodeAdapter({
@@ -57,8 +64,13 @@ var lehrgang = client.subscribe('/lehrgang', function(message){
 
 //Post auf die Ressource Lehrgang
 app.post('/lehrgang', function(req, res){
-    var newLehrgang = JSON.stringify(req.body);
-    console.log("Neuer Lehrgang:  " + JSON.stringify(newLehrgang.userID));
+    var publication = client.publish('/reitstall/:id/lehrgang', {
+        "lehrgang": req.body.lehrgang
+    });
+    
+    var newLehrgang = JSON.stringify(req.body)
+    console.log("Neuer Lehrgang:  " + newLehrgang);
+    
     var options = {
         host: 'localhost',
         port: '3000',
@@ -76,13 +88,13 @@ app.post('/lehrgang', function(req, res){
         });
     });
     externalRequest.setHeader("content-type", "application/json");
-    externalRequest.write(JSON.stringify(newLehrgang));
+    externalRequest.write(JSON.stringify(req.body));
     externalRequest.end();
 });
 
-//Get auf Ressouce article
+//Get auf Ressouce Lehrgang
 
-app.get('/lehrgang/:id', jsonParser, function(req, res){
+app.get('reitstall/:id/lehrgang/:id', jsonParser, function(req, res){
     var options = {
         host: 'localhost',
         port: '3000',
@@ -101,6 +113,99 @@ app.get('/lehrgang/:id', jsonParser, function(req, res){
     externalRequest.setHeader("content-type", "text/plain");
     externalRequest.end();
 });
+
+app.post('/reiter', function (req, res) {
+    var newReiter = JSON.stringify(req.body);
+    console.log("Einer User vom Typ Reiter wurde erstellt " + JSON.stringify(newReiter.reiterID));
+
+    var options = {
+        host: 'localhost',
+        port: '3000',
+        path: '/reiter',
+        method: 'POST'
+    };
+
+    var externalRequest = http.request(options, function (externalResponse) {
+        console.log('ein neuer Reiter wurde Erstellt');
+        externalResponse.on("data", function (chunk) {
+            console.log("body: " + chunk);
+            user = JSON.parse(chunk);
+
+            res.json(newReiter);
+            res.end();
+        });
+    });
+    externalRequest.setHeader("content-type", "application/json");
+    externalRequest.write(JSON.stringify(newReiter));
+    externalRequest.end();
+});
+
+app.get('reiter/:id', jsonParser, function(req, res){
+    var options = {
+        host: 'localhost',
+        port: '3000',
+        path: '/reiter/:id',
+        method: 'GET'
+    };
+    var externalRequest = http.request(options, function(externalResponse){
+        console.log('Reiter nach Id');
+        externalResponse.on('data', function(chunk) {
+            var lehrgangNachID = JSON.parse(chunk);
+
+            res.json(reiter);
+            res.end();
+        });
+    });
+    externalRequest.setHeader("content-type", "text/plain");
+    externalRequest.end();
+});
+
+app.post('/reitstall', function (req, res) {
+    var newReiter = JSON.stringify(req.body);
+    console.log("Einer User vom Typ Reitstall wurde erstellt " + JSON.stringify(newReitstall.reiterID));
+
+    var options = {
+        host: 'localhost',
+        port: '3000',
+        path: '/reistall',
+        method: 'POST'
+    };
+
+    var externalRequest = http.request(options, function (externalResponse) {
+        console.log('ein neuer Reitstall wurde erstellt');
+        externalResponse.on("data", function (chunk) {
+            console.log("body: " + chunk);
+            user = JSON.parse(chunk);
+
+            res.json(newReitstall);
+            res.end();
+        });
+    });
+    externalRequest.setHeader("content-type", "application/json");
+    externalRequest.write(JSON.stringify(newReitstall));
+    externalRequest.end();
+});
+
+app.get('reiter/:id', jsonParser, function(req, res){
+    var options = {
+        host: 'localhost',
+        port: '3000',
+        path: '/reiter/:id',
+        method: 'GET'
+    };
+    var externalRequest = http.request(options, function(externalResponse){
+        console.log('Reiter nach Id');
+        externalResponse.on('data', function(chunk) {
+            var lehrgangNachID = JSON.parse(chunk);
+
+            res.json(reiter);
+            res.end();
+        });
+    });
+    externalRequest.setHeader("content-type", "text/plain");
+    externalRequest.end();
+});
+
 
 server.listen(8000, function () {
     console.log("Server listens on Port 8000");

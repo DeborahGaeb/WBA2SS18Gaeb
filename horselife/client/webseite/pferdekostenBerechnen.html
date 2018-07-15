@@ -1,0 +1,104 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Horselife Login</title>
+        <link href="css/styles.css" rel="stylesheet" type="text/css">
+        <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+    </head>
+<body>
+<header>
+    <div id="logo"> <img src="pic/HorselifeLogo.png"> </div>
+</header>
+    <div class="centerer">
+        <nav>
+            <a href="index.html"> Home </a><a class="lines">|</a>                
+            <a href="lehrgaenge.html">Lehrgänge</a><a class="lines">|</a>
+            <a href="turniere.html">Turniere</a><a class="lines">|</a>
+            <a href="stallSuche.html">Stallsuche </a><a class="lines">|</a> 
+            <a href="login.html">Login</a><a class="lines">|</a> 
+         </nav>
+    </div>
+
+    <div id="wraper">
+        <aside class="col-md-2 col-lg-3">
+            <p> Hallo </p>
+            <p> Du willst Wissen was dein Pferd kostet. </p>
+            <p> Stallmiete wird monatlich fällig, die Hufe sollte alle acht Wochen gemacht werden. Die Impfungen werden halbjährlich fällig. Ein Wurmkur sollte alle 3 Monate durchgeführt werden. Der Zahnarzt kommt einmal im Jahr. Futter ist das mormale Kraftfutter und Möhren gemeint. Zusatzfutter sind Vitamine und Minarilieren Lecklie, Saftfutter. Kurse und Turnierkosten fallen zwar unregelmäßig an, aber jeder Reiter weiß wieviele Turniere er melden will und an wieviele Lehrgänge er besuchen wiil. Die Haftpflichtversichung ist sehr wichtig, da diese den Reiter bei Schäden, die das eigene Pferd verursacht absichert. Fahrtkosten müssen nur berechnet werden, wenn welche entstehen. Für den Tierarzt sollte jeden Monat etwas ersparrt werden, vielleicht sogar auf einem extra Sparbuch, somit kann man Böse überraschungen im Krankheitsfall des Pferdes (Hohe Tierarztrechnungen) abfangen. </p>
+        </aside>
+
+        <hr/> <center> <form> <section> 
+            <table>
+                <tr>
+                    <th>Stallmiete</th>
+                    <th> <input type="number" id:"stallmieteInput"> </th>
+                </tr>
+                <tr>
+                    <th> Impfung  </th>
+                    <th> <input type="number" id:"impfungInput"> </th>    
+                </tr>
+                <tr>
+                    <th> Wurmkur </th>
+                    <th> <input type="number" id:"wurmkurInput"> </th>    
+                </tr>
+                <tr>
+                    <th> Hufe und Beschlag alle 8 Wochen </th>
+                    <th>  <input type="number" id:"beschlagInput"></th>    
+                </tr>    
+                <tr>
+                    <th> Zahnarzt </th>
+                    <th> <input type="number" id:"zahnarztInput"></th>
+                </tr>
+                <tr>
+                    <th> Reitunterricht </th>
+                    <th> <input type="number" id:"reitunterrichtInput"> </th>
+                </tr>
+                <tr>
+                    <th> Futter monatlich </th>
+                    <th> <input type="number" id:"futterInput"> </th>
+                </tr>
+                <tr>
+                    <th> Zusatzfutter </th>
+                    <th> <input type="number" id:"zusatzFutterInput"> </th>
+                </tr>
+                <tr>
+                    <th> Haftpflichtversichung jährlich </th>
+                    <th> <input type="number" id:"haftpflichtversicherungInput"> </th>
+                </tr>
+                <tr>
+                    <th> Tierarztkosten oder Versicherung </th>
+                    <th> <input type="number" id:"tierarztkostenInput"> </th>
+                </tr>
+                <tr>
+                    <th> monatliche Gesamtkosten </th>
+                    <th>  </th>
+                </tr>
+                <tr>
+                    <th>  </th>
+                    <th> <input type="button" id="berechne" onclick="berechneKosten()"  name="berechne"></th>
+                </tr>
+            </table>
+            <script  >
+                document.getElementById("berechne").onclick = function berechneKosten(){
+                    var stallkosten      = parseInt(document.getElementById('stallmieteInput').value);
+                    var impfKosten       = parseInt(document.getElementById('impfungInput').value);
+                    var wurmkurKosten    = parseInt(document.getElementById('wurmkurInput').value);
+                    var beschlagKosten   = parseInt(document.getElementById('beschlagInput').value);
+                    var zahnarztKosten                = parseInt(document.getElementById('zahnarztInput').value);
+                    var reitunterrichtKosten          = parseInt(document.getElementById('reitunterrichtInput').value);
+                    var futterKosten                  = parseInt(document.getElementById('futterInput').value);
+                    var zusatzFutterKosten            = parseInt(document.getElementById('zusatzFutterInput').value);
+                    var haftpflichtversicherungKosten = parseInt(document.getElementById('haftpflichtversicherungInput').value);
+                    var tierarztKosten                = parseInt(document.getElementById('tierarztkostenInput').value);
+
+                    var kosten = stallkosten + impfKosten/6 +  wurmkurKosten/4 + zahnarztKosten/12 + reitunterrichtKosten + futterKosten + zusatzFutterInput + haftpflichtversicherungKosten/12 + tierarztkostenInput; 
+
+                    console.log('Die Monatlichen Kosten betragen: ' + kosten + ' Euro.' );
+                    
+                }
+                
+
+            </script>
+
+
+        </section></form> </center>
