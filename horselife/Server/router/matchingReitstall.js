@@ -1,47 +1,36 @@
 //Einbindung von EXPRESS
 var express = require('express');
 var app = express();
-var router = express.Router();
+var machtingRouter = express.Router();
 
 //Einbindung der Datenbank Redis
 var redis = require('redis');
 var client = redis.createClient();
 
-app.post('/matchingReitstall', function(res, req){
-    var scorewert = [];
-    var Reitstall_Id = client.get('reitstall: ', + req.params.id, function(err, rep) {
-        var reitstall = JSON.parse(rep);
-        client.get('reitstall: ', req.params.id, JSON.stringify(reitstall), function(err, rep){
-            return;
-        });
-     });
-    var freieBoxen_Id = client.get('freieBox: ', + req.params.id, function(err, rep){
-        var freieBox = JSON.parse(rep);
-        client.get('freieBox: ', req.params.id, JSON.stringify(freieBox), function(err, rep){
-            return;
-        });   
+machtingRouter.post('/matchingReitstall', function(res, req){
+    var scorewert = 0;
+    
+    var reiter_id = client.get('reiter', function(err, rep) {
+        res.send(JSON.parse(rep));
+    });
+    
+    var Reitstall_Id = client.get('reitstall', function(err, rep) {
+        res.send(JSON.parse(rep));
     });
 
-    var pferde_Id =  client.get('pferde:', + req.params.id, function(err, rep){
-        var pferd = JSON.parse(rep);
-        client.set('pferde: ' + req.params.id, JSON.stringify(pferde), function(err, rep){
-            return;
-        });
-    });
-    var reiter_id = client.get('reiter: ' + req.params.id, function (err, rep) {
-        var reiter = JSON.parse(rep);
-        client.set('reiter: ' + reiter.id, JSON.stringify(reiter), function (err, rep) {
-            return;
-        });
+    var freieBoxen_Id = client.get('freieBoxen', function(err, rep) {
+        res.send(JSON.parse(rep));
+      });
+
+    var pferde_Id =  client.get('pferde', function(err, rep) {
+        res.send(JSON.parse(rep));
     });
 
-    var wunschStall = client.get('Wunschstall: ' + req.params.id, function (err, rep) {
-        var wunschStall = JSON.parse(rep);
-        client.set('wunschStall: ' + wunschStall.id, JSON.stringify(wunschStall), function (err, rep) {
-            res.json(wunschStall);
-        });
-    });
+    var wunschStall = client.get('wunschstall', function(err, rep) {
+        res.send(JSON.parse(rep));
+      });
 
+    //Die Wichtigkeit der veschiedenen Option
     var wichtigkeitHaltung      = req.body.wichtigkeiWuschtHaltung;
     var wichtigkeitReithalle    = req.body.wichtigkeitReithalle;
     var wichtigkeitWeideKoppel  = req.body.wichtigkeit;
@@ -50,8 +39,8 @@ app.post('/matchingReitstall', function(res, req){
     var wichtigkeitFuehranlage  = req.body.wichtigkeitFuehranlage;
     var wichtigkeitLaufband     = req.body.wichtigkeitLaufband;
     var wichtigkeitRundpan      = req.body.wichtigkeitRundpan;
-    var wichtigkeitLongierhalle = req.body.wichtigkeitLongierhalle;;
-    var wichtigkeitSandbahn     = req.body.wichtigkeitSandbahn;;
+    var wichtigkeitLongierhalle = req.body.wichtigkeitLongierhalle;
+    var wichtigkeitSandbahn     = req.body.wichtigkeitSandbahn;
     var wichtigkeitWaschplatz   = req.body.wichtigkeitWaschplatz;
     var wichtigkeitPutzplatz    = req.body.wichtigkeitPutzplatz;
     var wichtigkeitSolarium     = req.body.wichtigkeitSolarium ;
@@ -144,3 +133,4 @@ if(distance <= req.params.distanze){
 } 
 ***/
 
+module.exports = machtingRouter;

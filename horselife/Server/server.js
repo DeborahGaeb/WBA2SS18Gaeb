@@ -22,8 +22,14 @@ var cors = require('cors');
 
 // Routen
 const reiterRouter = require("./router/reiter");
+const pferdeRouter = require("./router/pferde");
+
 const reitstallRouter = require("./router/reitstall");
+const freieBoxenRouter = require("./router/freieBoxen");
+const lehrgangRouter = require("./router/lehrgang");
+
 const wunschstallRouter = require("./router/wunschStall");
+
 //EInbinden instgramm 
 var ig = require('instagram-node').instagram();
 
@@ -44,21 +50,30 @@ app.use((req, res, next) =>{
 	next();
 });
 
-app.use("/reiter", reiterRouter);
-app.use("/reitstall", reitstallRouter);
+app.use(reiterRouter);
+app.use(pferdeRouter);
+app.use(reitstallRouter);
+app.use(freieBoxenRouter);
+app.use(lehrgangRouter);
 //app.use("/matchingReitstall", matchingReitstall/Router);
-app.use('/wunschstall', wuschstallRouter);
+app.use(wunschstallRouter);
+
+
+
 
 //EInen Instgramm Intgramm 
-ig.use({"client_id": "1fe39dcc6872416ba4f3542abfe5624b", "client_secret":  "d2e8762ab6de471589e78b2e2edb5e8a"});
+//ig.use({"client_id": "1fe39dcc6872416ba4f3542abfe5624b", "client_secret":  "d2e8762ab6de471589e78b2e2edb5e8a"});
 
 //Beliebte Bilder auf insta finden
+/*
 ig.media_popular(function (err, media, limit) {
 	if (err) { 
 		throw err; 
 	}
 	console.log(media);
 })
+
+*/
 
 
 app.listen(3000, function () {
